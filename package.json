@@ -1,0 +1,41 @@
+{
+  "name": "api-solid",
+  "version": "1.0.0",
+  "description": "# Requisitos funcionais  - [ ] Deve ser possível se cadastrar; - [ ] Deve ser possível se autenticar; - [ ] Deve ser possível obter o perfil de um usuário logado; - [ ] Deve ser possível obter o número de check-ins realizados pelo usuário logado; - [ ] Deve ser possível o usuário obter seu histórico de check-ins; - [ ] Deve ser possível o usuário buscar academias próximas; - [ ] Deve ser possível o usuário buscar academias pelo nome; - [ ] Deve ser possível o usuário realizar check-in em um academia; - [ ] Deve ser possível validar o check-in de um usuário; - [ ] Deve ser possível cadastrar uma academia;",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start:dev": "tsx watch src/server.ts",
+    "start": "node build/server.js",
+    "build": "tsup src --out-dir build",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "test:ui": "vitest --ui"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@rocketseat/eslint-config": "2.2.2",
+    "@types/bcryptjs": "2.4.6",
+    "@types/node": "22.7.4",
+    "@vitest/coverage-v8": "2.1.2",
+    "@vitest/ui": "2.1.2",
+    "eslint": "8.57.1",
+    "prisma": "5.20.0",
+    "tsup": "8.3.0",
+    "tsx": "4.19.1",
+    "typescript": "5.6.2",
+    "vite-tsconfig-paths": "5.0.1",
+    "vitest": "2.1.2"
+  },
+  "dependencies": {
+    "@prisma/client": "5.20.0",
+    "bcryptjs": "2.4.3",
+    "dayjs": "1.11.13",
+    "dotenv": "16.4.5",
+    "fastify": "5.0.0",
+    "zod": "3.23.8"
+  }
+}
