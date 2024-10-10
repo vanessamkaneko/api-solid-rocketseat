@@ -8,6 +8,7 @@ interface GetUserMetricsUseCaseResponse {
   checkInsCount: number
 }
 
+// nº checkins realizados pelo usuário
 export class GetUserMetricsUseCase {
   constructor(private checkInsRepository: ICheckInsRepository) { }
 

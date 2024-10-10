@@ -10,6 +10,7 @@ interface FetchUserCheckInsHistoryUseCaseResponse {
   checkIns: CheckIn[]
 }
 
+// histórico de checkins do user
 export class FetchUserCheckInsHistoryUseCase {
   constructor(private checkInsRepository: ICheckInsRepository) { }
 
