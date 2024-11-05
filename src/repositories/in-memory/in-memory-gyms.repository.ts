@@ -47,3 +47,5 @@ export class InMemoryGymsRepository implements IGymsRepository{
     return gym
   }
 }
+
+/* Prisma unchecked type: quando vai ser criar uma instância de entidade e os relacionamentos já existem anteriormente */

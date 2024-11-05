@@ -18,7 +18,7 @@ export class PrismaCheckInsRepository implements ICheckInsRepository {
     const startOfTheDay = dayjs(date).startOf('date')
     const endOfTheDay = dayjs(date).endOf('date')
 
-    const checkIn = await prisma.checkIn.findFirst({
+    const checkIn = await prisma.checkIn.findFirst({ // findFirst => p/ buscar por campos que não sejam únicos
       where: {
         user_id: userId,
         created_at: {

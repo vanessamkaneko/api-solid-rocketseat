@@ -51,3 +51,8 @@ model Gym {
 
   @@map("gyms")
 }
+
+// User → CheckIn: Um usuário pode ter vários check-ins (One-to-Many).
+// Gym → CheckIn: Uma academia pode ter vários check-ins (One-to-Many).
+// CheckIn → User: Vários check-ins pertencem a um único usuário (Many-to-One).
+// CheckIn → Gym: Vários check-ins pertencem a uma única academia (Many-to-One).
