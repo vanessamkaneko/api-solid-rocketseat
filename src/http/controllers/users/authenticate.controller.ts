@@ -9,7 +9,7 @@ export async function authenticate(request: FastifyRequest, reply: FastifyReply)
     password: z.string().min(6)
   })
 
-  const { email, password } = authenticateBodySchema.parse(request.body) 
+  const { email, password } = authenticateBodySchema.parse(request.body)
 
   try {
     const authenticateUseCase = makeAuthenticateUseCase()
@@ -18,29 +18,39 @@ export async function authenticate(request: FastifyRequest, reply: FastifyReply)
       email, password
     })
 
-    const token = await reply.jwtSign({}, { //criação do token
-      sign: {
-        sub: user.id
-      }
-    })
+    const token = await reply.jwtSign( //criação do token
+      {
+        role: user.role
+      },
+      {
+        sign: {
+          sub: user.id
+        },
+      },
+    )
 
-    const refreshToken = await reply.jwtSign({}, { //criação do token
-      sign: {
-        sub: user.id,
-        expiresIn: '7d'
+    const refreshToken = await reply.jwtSign(
+      {
+        role: user.role
+      },
+      {
+        sign: {
+          sub: user.id,
+          expiresIn: '7d'
+        }
       }
-    })
+    )
 
     return reply
-    .setCookie('refreshToken', refreshToken, {
-      path: '/', // todas as rotas terão acesso 
-      secure: true, // cookie enctriptado pelo HTTPs ("HTTPs sendo usado no server?")
-      sameSite: true, // cookie acessível apenas no mesmo site
-      httpOnly: true // cookie só poderá ser acessado pelo backend; disponível apenas no contexto da requisição, sem ser salvo no browser
-    })
-    .status(200).send({
-      token
-    })
+      .setCookie('refreshToken', refreshToken, {
+        path: '/', // todas as rotas terão acesso 
+        secure: true, // cookie enctriptado pelo HTTPs ("HTTPs sendo usado no server?")
+        sameSite: true, // cookie acessível apenas no mesmo site
+        httpOnly: true // cookie só poderá ser acessado pelo backend; disponível apenas no contexto da requisição, sem ser salvo no browser
+      })
+      .status(200).send({
+        token
+      })
 
   } catch (err) {
     if (err instanceof InvalidCredentialsError) {
@@ -50,5 +60,5 @@ export async function authenticate(request: FastifyRequest, reply: FastifyReply)
     throw err
   }
 
- 
+
 }

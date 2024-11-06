@@ -4,6 +4,7 @@ import { create } from "./create-checkin.controller";
 import { validate } from "./validate-checkin.controller";
 import { metrics } from "./get-user-metrics.controller";
 import { history } from "./user-checkins-history.controller";
+import { verifyUserRole } from "@/http/middlewares/verify-user-role";
 
 export async function checkInRoutes(app: FastifyInstance) {
  app.addHook('onRequest', verifyJWT) // todas as rotas daqui p/ baixo o user precisará estar autenticado
@@ -12,6 +13,6 @@ export async function checkInRoutes(app: FastifyInstance) {
  app.get('/check-ins/metrics', metrics)
 
  app.post('/gyms/:gymId/check-ins', create)
- app.patch('/check-ins/:checkInId/validate', validate)
+ app.patch('/check-ins/:checkInId/validate', { onRequest: [verifyUserRole('ADMIN')] }, validate)
 
 }
