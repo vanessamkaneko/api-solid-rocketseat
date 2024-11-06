@@ -24,7 +24,21 @@ export async function authenticate(request: FastifyRequest, reply: FastifyReply)
       }
     })
 
-    return reply.status(200).send({
+    const refreshToken = await reply.jwtSign({}, { //criação do token
+      sign: {
+        sub: user.id,
+        expiresIn: '7d'
+      }
+    })
+
+    return reply
+    .setCookie('refreshToken', refreshToken, {
+      path: '/', // todas as rotas terão acesso 
+      secure: true, // cookie enctriptado pelo HTTPs ("HTTPs sendo usado no server?")
+      sameSite: true, // cookie acessível apenas no mesmo site
+      httpOnly: true // cookie só poderá ser acessado pelo backend; disponível apenas no contexto da requisição, sem ser salvo no browser
+    })
+    .status(200).send({
       token
     })
 
